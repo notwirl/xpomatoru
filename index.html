@@ -1,0 +1,10 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>Xpomatoru — вход</title><style>
+*{box-sizing:border-box}body{margin:0;background:#111522;color:#e5e8f4;font:15px Segoe UI,sans-serif}main{max-width:420px;margin:15vh auto;padding:28px;background:#1b2133;border:1px solid #39415c;border-radius:14px}label,input,button{display:block;width:100%;margin:12px 0}input,button{font:inherit;padding:12px;border:1px solid #535d7c;border-radius:6px;background:#252d44;color:inherit}button{cursor:pointer;background:#6450b8}p{line-height:1.5;color:#b9c0d5}#error{color:#ffb5b5;min-height:22px}#workspace{height:calc(100vh - 36px);width:100%;border:0;display:block}header{height:36px;display:flex;align-items:center;gap:12px;padding:0 12px;background:#1b2133}header button{width:auto;margin:0;padding:3px 10px}#update{color:#ffe2a3} [hidden]{display:none!important}
+</style><script type="module" src="./gate.mjs"></script></head><body>
+<main id="login"><h1>Xpomatoru</h1><p>Введите пароль для открытия программы. Файлы раскроя остаются на вашем компьютере.</p>
+<form id="unlock"><label for="password">Пароль</label><input id="password" type="password" required autocomplete="off"><button id="submit">Открыть</button></form><p id="error" role="alert"></p></main>
+<header id="bar" hidden><span>Xpomatoru</span><span id="update" hidden>Вышла новая версия — сохраните проект и обновите страницу.</span><button id="refresh" hidden>Обновить страницу</button><button id="lock">Закрыть доступ</button></header>
+<iframe id="workspace" title="Программа раскроя" hidden></iframe>
+</body></html>
