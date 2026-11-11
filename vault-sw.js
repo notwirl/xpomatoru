@@ -62,8 +62,10 @@ self.addEventListener('fetch',event=>{
       if(!response.ok)throw new Error('Missing encrypted resource');
       const data=await decrypt(session.key,session.version.release,name,file.iv,await response.arrayBuffer());
       if(await sha256(data)!==file.sha256||data.byteLength!==file.size)throw new Error('Corrupt resource');
+      // GitHub API открыт только сборке, в которую при выпуске зашифрован ключ «Базы LST».
+      const connect=session.manifest.files['lst-base.json']?"connect-src 'self' https://api.github.com":"connect-src 'self'";
       const headers={'Content-Type':file.mime,'Cache-Control':'no-store','X-Content-Type-Options':'nosniff',
-        'Content-Security-Policy':"default-src 'self'; script-src 'self' 'wasm-unsafe-eval' 'unsafe-eval'; worker-src 'self' blob:; connect-src 'self'; img-src 'self' blob: data:; style-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'none'"};
+        'Content-Security-Policy':"default-src 'self'; script-src 'self' 'wasm-unsafe-eval' 'unsafe-eval'; worker-src 'self' blob:; "+connect+"; img-src 'self' blob: data:; style-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'none'"};
       return new Response(data,{headers});
     }catch{return new Response('Сборка повреждена. Загрузка остановлена.',{status:502});
   }
