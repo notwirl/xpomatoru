@@ -40,7 +40,8 @@ document.querySelector('#unlock').addEventListener('submit',async event=>{
     await message({type:'unlock',session,version,key});
     unlocked={session,version,key};
     const localTest = base.hostname === '127.0.0.1' && location.hash.startsWith('#selftest=');
-    const target = localTest ? 'selftest.html#' + location.hash.slice(10) : 'index.html';
+    const rust = new URLSearchParams(location.search).get('rust') === '1' ? '?rust=1' : '';
+    const target = localTest ? 'selftest.html' + rust + '#' + location.hash.slice(10) : 'index.html' + rust;
     frame.src=new URL(`run/${session}/${target}`,base).href;
     frame.hidden=false;
   document.querySelector('#login').hidden=true;
